@@ -29,7 +29,7 @@ public class PartidaXadrez {
 		Posicao destino = posicaoDestino.toPosicao();
 		validarPosicaoOrigem(origem);
 		Peça peçaCapturada = movimentacao(origem,destino);
-		return (PeçaXadrez)peçaCapturada;
+		return (PeçaXadrez) peçaCapturada;
 	}
 	private Peça movimentacao(Posicao origem,Posicao destino) {
 		Peça p = tabuleiro.removePeça(origem);
