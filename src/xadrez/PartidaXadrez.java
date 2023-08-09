@@ -22,11 +22,14 @@ public class PartidaXadrez {
 		}
 		return peça;
 	}
+	private void posicaoNovaPeça(char coluna, int linha,PeçaXadrez peça){
+		tabuleiro.posicaoPeça(peça, new PosicaoXadrez(coluna,linha).toPosicao());
+	}
 	
 	private void inicioPartida(){
-		tabuleiro.posicaoPeça(new Torre(tabuleiro,Cor.Branco), new Posicao(2,1));
-		tabuleiro.posicaoPeça(new Rei(tabuleiro,Cor.Branco), new Posicao(7,4));
-		tabuleiro.posicaoPeça(new Rei(tabuleiro,Cor.Preto), new Posicao(0,4));
+		posicaoNovaPeça('b',6,new Torre(tabuleiro,Cor.Branco));
+		posicaoNovaPeça('e',8,new Rei(tabuleiro,Cor.Branco));
+		posicaoNovaPeça('e',1,new Rei(tabuleiro,Cor.Preto));
 	}
 
 }
