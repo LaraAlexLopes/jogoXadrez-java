@@ -20,7 +20,10 @@ public class Posicao {
 	public void setColunas(int coluna) {
 		this.colunas = coluna;
 	}
-
+	public void setValores(int linhas, int colunas) {
+		this.linhas = linhas;
+		this.colunas = colunas;
+	}
 	@Override
 	public String toString() {
 		return linhas + "," + colunas;

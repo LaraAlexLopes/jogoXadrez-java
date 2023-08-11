@@ -23,11 +23,17 @@ public class PartidaXadrez {
 		}
 		return peça;
 	}
-	
+	public boolean[][] movimentosPossivveis(PosicaoXadrez posicaoOrigem){
+		Posicao posicao = posicaoOrigem.toPosicao();
+		validarPosicaoOrigem(posicao);
+		return tabuleiro.peça(posicao).possiveisMovimentos() ;
+		
+	}	
 	public PeçaXadrez perfomaceMovimentoXadrez(PosicaoXadrez posicaoOrigem, PosicaoXadrez posicaoDestino){
 		Posicao origem = posicaoOrigem.toPosicao();
 		Posicao destino = posicaoDestino.toPosicao();
 		validarPosicaoOrigem(origem);
+		validarPosicaoDestino(origem,destino);
 		Peça peçaCapturada = movimentacao(origem,destino);
 		return (PeçaXadrez) peçaCapturada;
 	}
@@ -37,7 +43,6 @@ public class PartidaXadrez {
 		tabuleiro.posicaoPeça(p, destino);
 		return peçaCapturada;
 	}
-	
 	private void validarPosicaoOrigem(Posicao posicao){
 		if(!tabuleiro.peçaExiste(posicao)) {
 			throw new XadrezException("Não existe peça na posição de origem");
@@ -45,9 +50,12 @@ public class PartidaXadrez {
 		if(!tabuleiro.peça(posicao).existePossivelMovimento()){
 			throw new XadrezException("Não existe movimentos possíveis para a peça escolhida");
 		}
-
 	}
-	
+	private void validarPosicaoDestino(Posicao origem,Posicao destino){
+		if(!tabuleiro.peça(origem).possiveisMovimento(destino)) {
+			throw new XadrezException("A peça escolhida não pode ser movida para a posição de destino");
+		}
+	}
 	private void posicaoNovaPeça(char coluna, int linha,PeçaXadrez peça){
 		tabuleiro.posicaoPeça(peça, new PosicaoXadrez(coluna,linha).toPosicao());
 	}
