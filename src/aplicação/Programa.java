@@ -13,7 +13,7 @@ public class Programa {
 		while(true) {
 			try {
 				UI.limparTela();
-				UI.printTabuleiro(partida.getPeça());
+				UI.printPartida(partida);
 				System.out.println("Origem: ");
 				PosicaoXadrez origem = UI.lerPosicaoPeça(sc);	
 				

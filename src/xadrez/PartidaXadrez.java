@@ -1,19 +1,30 @@
 package xadrez;
-
 import tabuleiro.Peça;
 import tabuleiro.Posicao;
 import tabuleiro.Tabuleiro;
 import xadrez.peças.Rei;
 import xadrez.peças.Torre;
-
 public class PartidaXadrez {
+	private int turno;
+	private Cor jogador;
 	private Tabuleiro tabuleiro;
 
 	public PartidaXadrez() {
 		tabuleiro = new Tabuleiro(8,8);
+		turno = 1;
+		jogador = Cor.Branco;
 		inicioPartida();
 	}
 	
+	public int getTurno() {
+		return turno;
+	}
+	public Cor getJogador() {
+		return jogador;
+	}
+	public Tabuleiro getTabuleiro() {
+		return tabuleiro;
+	}
 	public PeçaXadrez[][] getPeça(){
 		PeçaXadrez[][] peça = new PeçaXadrez[tabuleiro.getLinhas()][tabuleiro.getColunas()];
 		for (int i = 0; i<tabuleiro.getLinhas(); i++) {
@@ -35,6 +46,7 @@ public class PartidaXadrez {
 		validarPosicaoOrigem(origem);
 		validarPosicaoDestino(origem,destino);
 		Peça peçaCapturada = movimentacao(origem,destino);
+		proximoTurno();
 		return (PeçaXadrez) peçaCapturada;
 	}
 	private Peça movimentacao(Posicao origem,Posicao destino) {
@@ -47,6 +59,9 @@ public class PartidaXadrez {
 		if(!tabuleiro.peçaExiste(posicao)) {
 			throw new XadrezException("Não existe peça na posição de origem");
 		}
+		if(jogador != (((PeçaXadrez)tabuleiro.peça(posicao)).getCor())){
+			throw new XadrezException("A peça não é sua");
+		}
 		if(!tabuleiro.peça(posicao).existePossivelMovimento()){
 			throw new XadrezException("Não existe movimentos possíveis para a peça escolhida");
 		}
@@ -55,6 +70,11 @@ public class PartidaXadrez {
 		if(!tabuleiro.peça(origem).possiveisMovimento(destino)) {
 			throw new XadrezException("A peça escolhida não pode ser movida para a posição de destino");
 		}
+	}
+	
+	private void proximoTurno() {
+		turno++;
+		jogador = (jogador == Cor.Branco) ? Cor.Preto : Cor.Branco;
 	}
 	private void posicaoNovaPeça(char coluna, int linha,PeçaXadrez peça){
 		tabuleiro.posicaoPeça(peça, new PosicaoXadrez(coluna,linha).toPosicao());
