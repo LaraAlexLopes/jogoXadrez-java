@@ -51,9 +51,15 @@ public class UI {
 		printPeçasCapturadas(capturadas);
 		System.out.println();
 		System.out.println("Turno: " + partida.getTurno());
-		System.out.println("Esperando jogador: " + partida.getJogador());
-		if(partida.getCheque()) {
-			System.out.println("CHEQUE!");
+		if(!partida.getChequeMate()) {
+			System.out.println("Esperando jogador: " + partida.getJogador());
+			if(partida.getCheque()) {
+				System.out.println("CHEQUE!");
+			}
+		}
+		else {
+			System.out.println("CHEQUE MATE");
+			System.out.println("Vencedor: " + partida.getJogador());
 		}
 	}
 

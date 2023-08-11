@@ -13,6 +13,7 @@ public class PartidaXadrez {
 	private Cor jogador;
 	private Tabuleiro tabuleiro;
 	private boolean cheque;
+	private boolean chequeMate;
 	private List<Peça> peçasNoTabuleiro = new ArrayList<>();
 	private List<Peça> peçasCapturadas = new ArrayList<>();
 
@@ -44,6 +45,9 @@ public class PartidaXadrez {
 	public boolean getCheque() {
 		return cheque;
 	}
+	public boolean getChequeMate() {
+		return chequeMate;
+	}
 	public boolean[][] movimentosPossivveis(PosicaoXadrez posicaoOrigem){
 		Posicao posicao = posicaoOrigem.toPosicao();
 		validarPosicaoOrigem(posicao);
@@ -61,7 +65,12 @@ public class PartidaXadrez {
 			throw new XadrezException("Você não pode se colocar em cheque");
 		}
 		cheque = (testCheque(oponente(jogador))) ? true: false;
-		proximoTurno();
+		if(testChequeMate(oponente(jogador))){
+			chequeMate = true;
+		}
+		else {
+			proximoTurno();
+		}
 		return (PeçaXadrez) peçaCapturada;
 	}
 	private Peça movimentacao(Posicao origem,Posicao destino) {
@@ -109,17 +118,17 @@ public class PartidaXadrez {
 	private Cor oponente(Cor cor) {
 		return (cor == Cor.Branco) ? Cor.Preto : Cor.Branco;
 	}
-	private PeçaXadrez Rei(Cor cor) {
+	private PeçaXadrez rei(Cor cor) {
 		List<Peça> list = peçasNoTabuleiro.stream().filter(x -> ((PeçaXadrez)x).getCor() == cor).collect(Collectors.toList());
 		for(Peça p : list) {
 			if( p instanceof Rei) {
-				return (PeçaXadrez)p;
+				return (PeçaXadrez) p;
 			}
 		}
 		throw new IllegalStateException("Não tem rei da cor " + cor + " no tabuleiro");
 	}
 	private boolean testCheque(Cor cor) {
-		Posicao posicaoRei = Rei(cor).getPosicaoXadrez().toPosicao();
+		Posicao posicaoRei = rei(cor).getPosicaoXadrez().toPosicao();
 		List<Peça> peçasOponentes = peçasNoTabuleiro.stream().filter(x -> ((PeçaXadrez)x).getCor() == oponente(cor)).collect(Collectors.toList());
 		for (Peça p : peçasOponentes) {
 			boolean[][] mat = p.possiveisMovimentos();
@@ -129,6 +138,32 @@ public class PartidaXadrez {
 		}
 		return false;
 	}
+	private boolean testChequeMate(Cor cor) {
+		if(!testCheque(cor)) {
+			return false;
+		}
+		List<Peça> list = peçasNoTabuleiro.stream().filter(x -> ((PeçaXadrez)x).getCor() == cor).collect(Collectors.toList());
+		for (Peça p :list) {
+			boolean[][] mat = p.possiveisMovimentos();
+			for(int i = 0;i<tabuleiro.getLinhas(); i ++){
+				for(int j = 0;j<tabuleiro.getColunas();j++) {
+					if(mat[i][j]) {
+						Posicao origem = ((PeçaXadrez)p).getPosicaoXadrez().toPosicao();
+						Posicao destino = new Posicao(i,j);
+						Peça peçaCapturada = movimentacao(origem,destino);
+						boolean testCheque = testCheque(cor);
+						desfazerMovimento(origem,destino,peçaCapturada);
+						if(!testCheque) {
+							return false;
+						}
+					}
+				}
+				
+			}
+		}
+		return true;
+
+	}
 
 	private void posicaoNovaPeça(char coluna, int linha,PeçaXadrez peça){
 		tabuleiro.posicaoPeça(peça, new PosicaoXadrez(coluna,linha).toPosicao());
@@ -136,18 +171,12 @@ public class PartidaXadrez {
 	}
 	
 	private void inicioPartida(){
-		posicaoNovaPeça('c', 1, new Torre(tabuleiro, Cor.Branco));
-		posicaoNovaPeça('c', 2, new Torre(tabuleiro, Cor.Branco));
-		posicaoNovaPeça('d', 2, new Torre(tabuleiro, Cor.Branco));
-		posicaoNovaPeça('e', 2, new Torre(tabuleiro, Cor.Branco));
-		posicaoNovaPeça('e', 1, new Torre(tabuleiro, Cor.Branco));
-		posicaoNovaPeça('d', 1, new Rei(tabuleiro, Cor.Branco));
-		posicaoNovaPeça('c', 7, new Torre(tabuleiro, Cor.Preto));
-		posicaoNovaPeça('c', 8, new Torre(tabuleiro, Cor.Preto));
-		posicaoNovaPeça('d', 7, new Torre(tabuleiro, Cor.Preto));
-        posicaoNovaPeça('e', 7, new Torre(tabuleiro, Cor.Preto));
-        posicaoNovaPeça('e', 8, new Torre(tabuleiro, Cor.Preto));
-        posicaoNovaPeça('d', 8, new Rei(tabuleiro, Cor.Preto));
+		posicaoNovaPeça('h', 7, new Torre(tabuleiro, Cor.Branco));
+		posicaoNovaPeça('d', 1, new Torre(tabuleiro, Cor.Branco));
+		posicaoNovaPeça('e', 1, new Rei(tabuleiro, Cor.Branco));
+		
+		posicaoNovaPeça('b', 8, new Torre(tabuleiro, Cor.Preto));
+		posicaoNovaPeça('a', 8, new Rei(tabuleiro, Cor.Preto));
 	}
 
 }
