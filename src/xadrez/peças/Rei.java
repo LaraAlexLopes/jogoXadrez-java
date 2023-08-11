@@ -10,7 +10,7 @@ public class Rei extends PeçaXadrez{
 	}
 	@Override
 	public String toString() {
-		return "R";
+		return "K";
 	}
 	private boolean consegueMover(Posicao posicao) {
 		PeçaXadrez p = (PeçaXadrez) getTabuleiro().peça(posicao);
