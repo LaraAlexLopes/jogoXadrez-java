@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import tabuleiro.Peça;
 import tabuleiro.Posicao;
 import tabuleiro.Tabuleiro;
+import xadrez.peças.Peao;
 import xadrez.peças.Rei;
 import xadrez.peças.Torre;
 public class PartidaXadrez {
@@ -173,12 +174,30 @@ public class PartidaXadrez {
 	}
 	
 	private void inicioPartida(){
-		posicaoNovaPeça('h', 7, new Torre(tabuleiro, Cor.Branco));
-		posicaoNovaPeça('d', 1, new Torre(tabuleiro, Cor.Branco));
+		posicaoNovaPeça('a', 1, new Torre(tabuleiro, Cor.Branco));
 		posicaoNovaPeça('e', 1, new Rei(tabuleiro, Cor.Branco));
+		posicaoNovaPeça('h', 1, new Torre(tabuleiro, Cor.Branco));
+		posicaoNovaPeça('a', 2, new Peao(tabuleiro, Cor.Branco));
+		posicaoNovaPeça('b', 2, new Peao(tabuleiro, Cor.Branco));
+		posicaoNovaPeça('c', 2, new Peao(tabuleiro, Cor.Branco));
+		posicaoNovaPeça('d', 2, new Peao(tabuleiro, Cor.Branco));
+		posicaoNovaPeça('e', 2, new Peao(tabuleiro, Cor.Branco));
+		posicaoNovaPeça('f', 2, new Peao(tabuleiro, Cor.Branco));
+		posicaoNovaPeça('g', 2, new Peao(tabuleiro, Cor.Branco));
+		posicaoNovaPeça('h', 2, new Peao(tabuleiro, Cor.Branco));
 		
-		posicaoNovaPeça('b', 8, new Torre(tabuleiro, Cor.Preto));
-		posicaoNovaPeça('a', 8, new Rei(tabuleiro, Cor.Preto));
+		
+		posicaoNovaPeça('a', 8, new Torre(tabuleiro, Cor.Preto));
+		posicaoNovaPeça('e', 8, new Rei(tabuleiro, Cor.Preto));
+		posicaoNovaPeça('h', 8, new Torre(tabuleiro, Cor.Preto));
+		posicaoNovaPeça('a', 7, new Peao(tabuleiro, Cor.Preto));
+		posicaoNovaPeça('b', 7, new Peao(tabuleiro, Cor.Preto));
+		posicaoNovaPeça('c', 7, new Peao(tabuleiro, Cor.Preto));
+		posicaoNovaPeça('d', 7, new Peao(tabuleiro, Cor.Preto));
+		posicaoNovaPeça('e', 7, new Peao(tabuleiro, Cor.Preto));
+		posicaoNovaPeça('f', 7, new Peao(tabuleiro, Cor.Preto));
+		posicaoNovaPeça('g', 7, new Peao(tabuleiro, Cor.Preto));
+		posicaoNovaPeça('h', 7, new Peao(tabuleiro, Cor.Preto));
 	}
 
 }
