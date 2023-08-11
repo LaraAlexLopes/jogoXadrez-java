@@ -31,6 +31,11 @@ public class Programa {
 				if(peçaCapturada != null) {
 					capturadas.add(peçaCapturada);
 				}
+				if(partida.getPromovido() != null) {
+					System.out.print("Digite peça a ser promovida (B/Q/T/C)");
+					String type = sc.nextLine();
+					partida.substituiPeçaPromovida(type);
+				}
 			}
 			catch(XadrezException e) {
 				System.out.println(e.getMessage());
