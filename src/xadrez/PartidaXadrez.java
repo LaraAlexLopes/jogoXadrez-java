@@ -7,6 +7,7 @@ import tabuleiro.Peça;
 import tabuleiro.Posicao;
 import tabuleiro.Tabuleiro;
 import xadrez.peças.Bispo;
+import xadrez.peças.Cavalo;
 import xadrez.peças.Peao;
 import xadrez.peças.Rei;
 import xadrez.peças.Torre;
@@ -176,9 +177,11 @@ public class PartidaXadrez {
 	
 	private void inicioPartida(){
 		posicaoNovaPeça('a', 1, new Torre(tabuleiro, Cor.Branco));
+		posicaoNovaPeça('b', 1, new Cavalo(tabuleiro, Cor.Branco));
 		posicaoNovaPeça('c', 1, new Bispo(tabuleiro, Cor.Branco));
 		posicaoNovaPeça('e', 1, new Rei(tabuleiro, Cor.Branco));
 		posicaoNovaPeça('f', 1, new Bispo(tabuleiro, Cor.Branco));
+		posicaoNovaPeça('g', 1, new Cavalo(tabuleiro, Cor.Branco));
 		posicaoNovaPeça('h', 1, new Torre(tabuleiro, Cor.Branco));
 		posicaoNovaPeça('a', 2, new Peao(tabuleiro, Cor.Branco));
 		posicaoNovaPeça('b', 2, new Peao(tabuleiro, Cor.Branco));
@@ -191,9 +194,11 @@ public class PartidaXadrez {
 		
 		
 		posicaoNovaPeça('a', 8, new Torre(tabuleiro, Cor.Preto));
+		posicaoNovaPeça('b', 8, new Cavalo(tabuleiro, Cor.Preto));
 		posicaoNovaPeça('c', 8, new Bispo(tabuleiro, Cor.Preto));
 		posicaoNovaPeça('e', 8, new Rei(tabuleiro, Cor.Preto));
 		posicaoNovaPeça('f', 8, new Bispo(tabuleiro, Cor.Preto));
+		posicaoNovaPeça('g', 8, new Cavalo(tabuleiro, Cor.Preto));
 		posicaoNovaPeça('h', 8, new Torre(tabuleiro, Cor.Preto));
 		posicaoNovaPeça('a', 7, new Peao(tabuleiro, Cor.Preto));
 		posicaoNovaPeça('b', 7, new Peao(tabuleiro, Cor.Preto));
